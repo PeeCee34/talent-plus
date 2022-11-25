@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: talentplus-frontend-app-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: talentplus-frontend-app
+  template:
+    metadata:
+      labels:
+        app: talentplus-frontend-app
+    spec:
+    containers:
+      - image: PeeCee34/talentplus-frontend:latest
+        name: talentplus-frontend
+        imagePullPolicy: Always
+        

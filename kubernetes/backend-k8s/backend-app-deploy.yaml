@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: talentplus-backend-app-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: talentplus-backend-app
+  template:
+    metadata:
+      labels:
+        app: talentplus-backend-app
+    spec:
+      containers:
+      - image: PeeCee34/talentplus-backend:latest
+        name: talentplus-backend
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: backend-side-configs
+        - secretRef:
+            name: backend-side-secrets
+            
