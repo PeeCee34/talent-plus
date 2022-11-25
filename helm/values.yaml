@@ -1,0 +1,45 @@
+# for discovering services and pods
+serviceAccount: discovery-sa
+namespace: default
+
+apps:
+  nodeapp:
+    name: talentplus-backend-app-deploy
+    repository: PeeCee34/talentplus-backend
+    tag: "latest" #"1.0.0"
+    replicaCount: 2
+    configmap: backend-side-configs
+  reactapp:
+    name: todo-frontend-app-deploy
+    repository: PeeCee34/talentplus-frontend
+    tag: "latest" #"1.0.0"
+    replicaCount: 2
+  pullPolicy: Always
+
+database:
+  mongo:
+    serviceName: mongo
+    replicas: 2
+    port: 27017
+configmap:
+  ServerPort: 5000
+  frontendUrl: http://talentplus-frontend-service
+  MONGODB_URL: mongodb://talentplus-mongo-service:27017/talentplus-k8s
+service:
+  reactapp:
+    name: talentplus-frontend-service
+    type: NodePort
+    protocol: TCP
+    externalPort: 80
+    internalPort: 80
+  nodeapp:
+    name: talentplus-backend-service
+    type: NodePort
+    protocol: TCP
+    externalPort: 5000
+    internalPort: 5000
+
+resources:
+  staticIp: reactapp
+
+tolerations: []

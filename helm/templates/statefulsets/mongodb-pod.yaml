@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+  labels:
+    app: talentplus-mongodb
+spec:
+  replicas: {{ .Values.database.mongo.replicas }}
+  selector:
+    matchLabels:
+      app: talentplus-mongodb
+  serviceName: {{ .Values.database.mongo.serviceName }}
+  template:
+    metadata:
+      name: mongodb
+      labels:
+        app: talentplus-mongodb
+    spec:
+      volumes:
+      - name: talentplus-mongo-vol
+        persistentVolumeClaim:
+          claimName: talentplus-pvc
+      containers:
+      - image: mongo
+        name: mongo
+        command:
+        - mongod
+        - "--bind_ip"
+        - "0.0.0.0"
+        ports:
+        - containerPort: {{ .Values.database.mongo.port }}
+        volumeMounts:
+        - name: talentplus-mongo-vol
+          mountPath: /data/db
+          

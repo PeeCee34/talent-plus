@@ -1,0 +1,21 @@
+apiVersion: v1
+name: mernchart
+version: 1.0.0
+description: helm chart for  https://github.com/PeeCee34/talentplus
+
+keywords:
+  - nodejs
+  - reactjs
+  - express
+  - chart
+
+home: https://github.com/PeeCee34/talentplus
+
+sources:
+  - https://github.com/PeeCee34/talentplus
+  
+maintainers: # (optional)
+  - name: Pore Camara
+    email: porelivingstone22@gmail.com 
+
+appVersion: 1.0.0
